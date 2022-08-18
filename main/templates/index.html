@@ -1,0 +1,22 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<div class="container">
+    <header class="header">
+        <div class="hero">
+            <h3 class="heading">Masukan File Audio Disini</h3>
+            <hr>
+            <br>
+            <form action="/uploader" method="post" enctype="multipart/form-data">
+                <p class="sub-heading">
+                    <input type="file" name="audio" id="audio" accept="audio/*">
+                </p>
+                <p style="font-size: small; color: red; font-weight: bold;">{{ name }}</p>
+                <br>
+                <p><input type="submit"></p>
+            </form>
+        </div>
+    </header>
+</div>
+
+{% endblock %}
