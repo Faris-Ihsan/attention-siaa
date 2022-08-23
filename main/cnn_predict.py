@@ -27,6 +27,8 @@ maxlen = 70 # max number of words in a question to use
 
 def tokenize_df_train():
     d = pd.read_csv(dataset_path)
+    d = d.iloc[:,-1]
+    d = list(d)
     # print(d)
     # d = d['Konten']
     return d
@@ -73,17 +75,26 @@ def prediksi(kata):
     lstm_model = load_lstm_model()
     sequence = word_to_sequence(kata)
     prediksi_cnn = cnn_model.predict(sequence)
-    prediksi_lstm = lstm_model.predict(sequence)
+    # prediksi_lstm = lstm_model.predict(sequence)
+    prediksi = (prediksi_cnn > 0.5).astype(int)
+    if prediksi ==1:
+        prediction_label = "Ancaman"
+    else:
+        prediction_label = "Bukan Ancaman"
     # MaxPosition=np.argmax(prediksi)
     # classes = ['Bukan Ancaman', 'Ancaman'] 
     # prediction_label=classes[MaxPosition]
     # persentase = np.max(prediksi)
-    # persentase = persentase * 100
-    print(prediksi_cnn, prediksi_lstm)
+    persentase = prediksi_cnn * 100
     # print(prediction_label, persentase)
 
+    # Perhitungan ketika kedua metode sudah bisa
+    # best_tresh = 0.1
+    # pred_test_y = (pred_fasttext_test_y + 2 * pred_cnn_test_y) / 10.0
+    # pred_test_y = (pred_test_y > best_thresh).astype(int)
+
     #sementara biar ga error
-    prediction_label = 'yeah'
-    persentase = 100
+    # prediction_label = 'yeah'
+    # persentase = 100
     return prediction_label, int(persentase)
 
