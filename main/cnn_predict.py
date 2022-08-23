@@ -29,8 +29,6 @@ def tokenize_df_train():
     d = pd.read_csv(dataset_path)
     d = d.iloc[:,-1]
     d = list(d)
-    # print(d)
-    # d = d['Konten']
     return d
 
 def word_to_sequence(kata):
